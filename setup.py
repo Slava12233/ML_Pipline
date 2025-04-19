@@ -12,7 +12,7 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="gemini-pdf-finetuning",
+    name="fine_tuning",
     version="0.1.0",
     author="Your Name",
     author_email="your.email@example.com",
@@ -31,7 +31,11 @@ setup(
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
     python_requires=">=3.10",
-    install_requires=requirements,
+    install_requires=[
+        "pyyaml",
+        "google-cloud-aiplatform",
+        "kfp",
+    ],
     entry_points={
         "console_scripts": [
             "gemini-pdf-finetuning=src.main:app",

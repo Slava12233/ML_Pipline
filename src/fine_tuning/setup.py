@@ -83,15 +83,9 @@ def load_model_and_tokenizer(
     """
     logger.info(f"Loading model {config.model_name}")
     
-    # Map Gemini model names to HuggingFace model names
-    model_map = {
-        "gemini-pro": "google/gemini-pro",
-        "gemini-1.5-pro": "google/gemini-1.5-pro",
-        "gemini-1.5-flash": "google/gemini-1.5-flash",
-    }
-    
-    # Get HuggingFace model name
-    hf_model_name = model_map.get(config.model_name, config.model_name)
+    # Use the model name directly - we're using gpt2 instead of Gemini models
+    # since Gemini models are not available on Hugging Face
+    hf_model_name = config.model_name
     
     # Load tokenizer
     tokenizer = AutoTokenizer.from_pretrained(
@@ -134,11 +128,15 @@ def setup_peft_model(
         model = prepare_model_for_kbit_training(model)
     
     # Create LoRA configuration
+    # For GPT-2, the attention modules are named 'c_attn' and 'c_proj'
+    # instead of 'q_proj' and 'v_proj'
+    target_modules = ["c_attn", "c_proj"] if config.model_name == "gpt2" else config.lora.target_modules
+    
     peft_config = LoraConfig(
         r=config.lora.r,
         lora_alpha=config.lora.alpha,
         lora_dropout=config.lora.dropout,
-        target_modules=config.lora.target_modules,
+        target_modules=target_modules,
         bias=config.lora.bias,
         task_type=TaskType.CAUSAL_LM,
     )

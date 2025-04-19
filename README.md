@@ -1,69 +1,146 @@
-# Gemini PDF Fine-tuning Pipeline
+# Fine-tuning Pipeline for PDF-Based Training
 
-A streamlined pipeline for fine-tuning Google's Gemini models on PDF documentation.
+This repository contains a modular pipeline for fine-tuning language models on PDF content.
 
-## Project Overview
-
-This project implements an end-to-end pipeline for fine-tuning Gemini models on PDF documentation. The pipeline extracts text from PDFs, processes it into training examples, fine-tunes Gemini models using Parameter-Efficient Fine-Tuning (PEFT) with LoRA, evaluates the models, and deploys them for inference.
-
-## Key Features
-
-- PDF text extraction with PyPDF2 and Document AI
-- Semantic chunking and training data generation
-- Fine-tuning Gemini models with PEFT/LoRA on Vertex AI
-- Automated evaluation and deployment
-- Comprehensive monitoring and logging
-
-## Project Structure
+## Architecture Overview
 
 ```
-gemini-pdf-finetuning/
-├── docs/                    # Documentation
-├── src/                     # Source code
-│   ├── pdf_processing/      # PDF extraction and processing
-│   ├── data_preparation/    # Training data generation
-│   ├── fine_tuning/         # Model fine-tuning
-│   ├── evaluation/          # Model evaluation
-│   ├── deployment/          # Model deployment
-│   └── utils/               # Shared utilities
-├── tests/                   # Test suite
-├── config/                  # Configuration files
-├── notebooks/               # Jupyter notebooks for exploration
-├── scripts/                 # Utility scripts
-├── PLANNING.md              # Project planning document
-├── TASK.md                  # Task breakdown
-└── README.md                # This file
+                   ┌─────────────┐
+                   │    PDFs     │
+                   └──────┬──────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ PDF Processing  │
+                 └────────┬────────┘
+                          │
+                          ▼
+               ┌───────────────────┐
+               │ Data Preparation  │
+               └─────────┬─────────┘
+                         │
+                         ▼
+               ┌───────────────────┐
+               │    Fine-tuning    │◄────┐
+               └─────────┬─────────┘     │
+                         │               │
+                         ▼               │
+               ┌───────────────────┐     │
+               │    Evaluation     │─────┘
+               └─────────┬─────────┘
+                         │
+                         ▼
+               ┌───────────────────┐
+               │    Deployment     │
+               └───────────────────┘
 ```
 
-## Getting Started
+## Installation
 
-1. Review the [PLANNING.md](PLANNING.md) document for project architecture and technical decisions
-2. Check the [TASK.md](TASK.md) file for the detailed task breakdown and timeline
-3. Set up your GCP project and development environment
-4. Follow the implementation tasks in order
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/fine-tuning-pipeline.git
+cd fine-tuning-pipeline
+```
 
-## Prerequisites
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-- Python 3.10+
-- Google Cloud Platform account with Vertex AI access
-- PyTorch 2.0+
-- Access to Gemini models via Vertex AI
+3. Install dependencies:
+```bash
+pip install -e .
+pip install -r requirements.txt
+```
 
-## Documentation
+## Quick Start
 
-For detailed documentation on each component, refer to the `docs/` directory.
+Run the complete pipeline with one command:
 
-## Project Timeline
+```bash
+python scripts/run.py pipeline --pdf-dir data/pdfs --env local
+```
 
-- **Phase 1**: Infrastructure & PDF Processing (Weeks 1-2)
-- **Phase 2**: Training Data Preparation (Weeks 3-4)
-- **Phase 3**: Fine-tuning Implementation (Weeks 5-6)
-- **Phase 4**: Evaluation & Deployment (Weeks 7-8)
+Or run individual steps:
+
+```bash
+# Process PDFs
+python scripts/run.py pdf process data/pdfs data/extracted_text
+
+# Prepare training data
+python scripts/run.py data prepare data/extracted_text data/training_data
+
+# Fine-tune the model
+python scripts/run.py train finetune data/training_data data/model
+
+# Evaluate the model
+python scripts/run.py eval model data/model data/training_data/test.jsonl data/evaluation
+
+# Test the model on a PDF
+python scripts/run.py eval pdf data/pdfs/example.pdf --use-peft
+```
+
+## Configuration
+
+The pipeline uses a hierarchical configuration system with environment-specific overrides:
+
+- `config/config.yaml` - Base configuration
+- `config/local_config.yaml` - Local development overrides
+- `config/vertex_config.yaml` - Vertex AI environment overrides
+- `config/production_config.yaml` - Production environment overrides
+
+Specify the environment using the `--env` parameter:
+
+```bash
+python scripts/run.py pipeline --env production
+```
+
+## Pipeline Components
+
+### 1. PDF Processing
+
+The PDF processing component extracts text and metadata from PDF files using methods like PyPDF2 or Google Document AI.
+
+```bash
+python scripts/run.py pdf process data/pdfs data/extracted_text --method pypdf2
+```
+
+### 2. Data Preparation
+
+The data preparation component generates training examples from the extracted text.
+
+```bash
+python scripts/run.py data prepare data/extracted_text data/training_data --quality-report
+```
+
+### 3. Fine-tuning
+
+The fine-tuning component trains models using techniques like PEFT/LoRA for parameter-efficient adaptation.
+
+```bash
+python scripts/run.py train finetune data/training_data data/model --method peft
+```
+
+### 4. Evaluation
+
+The evaluation component assesses model performance using metrics like ROUGE, BLEU, and BERTScore.
+
+```bash
+python scripts/run.py eval model data/model data/training_data/test.jsonl data/evaluation
+```
+
+### 5. Deployment
+
+The deployment component handles model packaging and serving.
+
+## Development
+
+- Check the `OPTIMIZATIONS.md` file for details on recent code optimizations
+- Task descriptions are available in the `docs/` directory
+- See `PLANNING.md` for architectural decisions
 
 ## License
 
-[Specify your license here]
-
-## Contact
-
-[Your contact information]
+[MIT License]

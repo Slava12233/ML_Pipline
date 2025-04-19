@@ -166,55 +166,81 @@ def plot_length_distributions(
     input_df = df[df["field"] == "input_length"]
     output_df = df[df["field"] == "output_length"]
     
-    plt.bar(index, input_df["mean"], bar_width, label="Input Length")
-    plt.bar(index + bar_width, output_df["mean"], bar_width, label="Output Length")
-    
-    plt.xlabel("Split")
-    plt.ylabel("Mean Length (characters)")
-    plt.title("Mean Input and Output Lengths by Split")
-    plt.xticks(index + bar_width / 2, input_df["split"])
-    plt.legend()
-    
-    # Save the plot
-    mean_lengths_path = output_dir / "mean_lengths.png"
-    plt.savefig(mean_lengths_path)
+    # Make sure we have both input and output data
+    if not input_df.empty and not output_df.empty:
+        plt.bar(index, input_df["mean"], bar_width, label="Input Length")
+        plt.bar(index + bar_width, output_df["mean"], bar_width, label="Output Length")
+        
+        plt.xlabel("Split")
+        plt.ylabel("Mean Length (characters)")
+        plt.title("Mean Input and Output Lengths by Split")
+        # Fixed: Make sure the number of ticks matches the number of locations
+        plt.xticks(index + bar_width / 2, list(input_df["split"]))
+        plt.legend()
+        
+        # Save the plot
+        mean_lengths_path = output_dir / "mean_lengths.png"
+        plt.savefig(mean_lengths_path)
+    else:
+        mean_lengths_path = None
+        
     plt.close()
     
     # Plot statistics for each split
+    split_stats_paths = {}
     for split in df["split"].unique():
         plt.figure(figsize=(10, 6))
         
         # Filter for the current split
         split_df = df[df["split"] == split]
         
-        # Create a grouped bar chart
-        bar_width = 0.2
-        index = np.arange(len(split_df["field"].unique()))
+        # Get unique fields for this split
+        unique_fields = split_df["field"].unique()
         
-        # Filter for input and output lengths
-        input_df = split_df[split_df["field"] == "input_length"]
-        output_df = split_df[split_df["field"] == "output_length"]
+        if len(unique_fields) > 0:
+            # Create a grouped bar chart for statistical measures
+            field_positions = np.arange(len(unique_fields))
+            
+            # Get min, mean, and max values for all fields
+            all_mins = []
+            all_means = []
+            all_maxes = []
+            all_field_names = []
+            
+            for field in unique_fields:
+                field_data = split_df[split_df["field"] == field]
+                if not field_data.empty:
+                    all_mins.append(field_data["min"].values[0])
+                    all_means.append(field_data["mean"].values[0])
+                    all_maxes.append(field_data["max"].values[0])
+                    all_field_names.append(field)
+            
+            # Plot min, mean, and max if we have data
+            if all_field_names:
+                bar_width = 0.25
+                plt.bar(field_positions, all_mins, bar_width, label="Min")
+                plt.bar(field_positions + bar_width, all_means, bar_width, label="Mean")
+                plt.bar(field_positions + 2 * bar_width, all_maxes, bar_width, label="Max")
+                
+                plt.xlabel("Field")
+                plt.ylabel("Length (characters)")
+                plt.title(f"Length Statistics for {split.capitalize()} Split")
+                # Fixed: Make sure the number of ticks matches the number of locations
+                plt.xticks(field_positions + bar_width, all_field_names)
+                plt.legend()
+                
+                # Save the plot
+                stats_path = output_dir / f"{split}_stats.png"
+                plt.savefig(stats_path)
+                split_stats_paths[split] = str(stats_path)
         
-        # Plot min, mean, and max
-        plt.bar(index, input_df["min"], bar_width, label="Min")
-        plt.bar(index + bar_width, input_df["mean"], bar_width, label="Mean")
-        plt.bar(index + 2 * bar_width, input_df["max"], bar_width, label="Max")
-        
-        plt.xlabel("Field")
-        plt.ylabel("Length (characters)")
-        plt.title(f"Length Statistics for {split.capitalize()} Split")
-        plt.xticks(index + bar_width, input_df["field"])
-        plt.legend()
-        
-        # Save the plot
-        stats_path = output_dir / f"{split}_stats.png"
-        plt.savefig(stats_path)
         plt.close()
     
-    return {
-        "mean_lengths": str(mean_lengths_path),
-        "split_stats": str(output_dir),
-    }
+    result = {"split_stats": str(output_dir)}
+    if mean_lengths_path:
+        result["mean_lengths"] = str(mean_lengths_path)
+    
+    return result
 
 
 def calculate_quality_metrics(

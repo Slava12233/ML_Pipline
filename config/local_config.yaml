@@ -1,0 +1,88 @@
+# Gemini PDF Fine-tuning Local Configuration
+
+# Project Settings
+project:
+  name: gemini-pdf-finetuning
+  version: 0.1.0
+  description: Pipeline for fine-tuning Gemini models on PDF documentation
+
+# Google Cloud Settings
+gcp:
+  project_id: local-dev-project
+  region: us-central1
+  zone: us-central1-a
+  storage:
+    bucket_name: local-bucket
+    pdf_folder: pdfs
+    extracted_text_folder: extracted_text
+    training_data_folder: training_data
+    model_folder: models
+
+# Fine-tuning Settings
+fine_tuning:
+  model: gpt2  # Using open-source model for local development
+  peft:
+    r: 8  # Lower LoRA rank for faster local training
+  training:
+    batch_size: 4  # Smaller batch size for local machines
+    learning_rate: 1.0e-5
+    epochs: 2  # Fewer epochs for local testing
+    warmup_steps: 100
+    weight_decay: 0.01
+    gradient_accumulation_steps: 4
+    max_grad_norm: 1.0
+    fp16: false  # Disable mixed precision for local compatibility
+  vertex_ai:
+    project_id: local-dev-project
+    region: us-central1
+    machine_type: n1-standard-8
+    accelerator_type: NVIDIA_TESLA_V100
+    accelerator_count: 1
+  output_dir: ./data/model
+  seed: 42
+
+# PDF Processing Settings
+pdf_processing:
+  extraction_method: pypdf2
+  chunk_size: 1000
+  overlap: 200
+  min_chunk_length: 100
+
+# Training Data Settings
+training_data:
+  format: jsonl
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  examples_per_document: 10
+  min_input_length: 10
+  max_input_length: 1024
+  min_output_length: 20
+  max_output_length: 2048
+
+# Evaluation Settings
+evaluation:
+  metrics:
+    - rouge
+    - bleu
+    - bertscore
+  human_evaluation:
+    enabled: false
+    num_examples: 10
+    criteria:
+      - relevance
+      - factuality
+      - coherence
+      - helpfulness
+
+# Deployment Settings
+deployment:
+  endpoint_name: gemini-finetuned-local
+  machine_type: n1-standard-4
+  min_replicas: 1
+  max_replicas: 1
+  accelerator_type: null
+  accelerator_count: 0
+
+# Local environment configuration overrides
+environment: local 

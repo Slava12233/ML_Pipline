@@ -4,6 +4,7 @@ pydantic>=2.0.0
 typer>=0.9.0
 fastapi>=0.95.0
 uvicorn>=0.15.0
+pyyaml>=6.0.0
 
 # PDF Processing
 PyPDF2>=3.0.0
@@ -15,6 +16,8 @@ google-cloud-documentai>=2.20.0
 nltk>=3.8.1
 transformers>=4.30.0
 sentence-transformers>=2.2.2
+spacy>=3.5.0
+scikit-learn>=1.2.0
 
 # Machine Learning
 torch>=2.0.0
@@ -26,6 +29,9 @@ rouge-score>=0.1.2
 matplotlib>=3.7.0
 optuna>=3.0.0
 seaborn>=0.12.0
+tensorboard>=2.10.0
+sacrebleu>=2.3.0
+bert-score>=0.3.13
 
 # Google Cloud & Vertex AI
 google-cloud-storage>=2.10.0
@@ -36,9 +42,14 @@ google-cloud-logging>=3.0.0
 # Pipeline & Orchestration
 kfp>=2.0.0
 
+# API & Deployment
+requests>=2.28.0
+aiohttp>=3.8.0
+
 # Testing
 pytest>=7.3.1
 pytest-cov>=4.1.0
+pytest-mock>=3.10.0
 
 # Development
 black>=23.3.0

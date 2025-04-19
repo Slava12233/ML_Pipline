@@ -43,6 +43,11 @@ def load_training_data(
     """
     logger.info(f"Loading training data from {data_dir}")
     
+    # Set padding token if not set
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        logger.info(f"Setting pad_token to eos_token: {tokenizer.eos_token}")
+    
     data_dir = Path(data_dir)
     
     # Check if data files exist
@@ -167,8 +172,7 @@ def create_trainer(
         logging_steps=config.training.logging_steps,
         save_steps=config.training.save_steps,
         eval_steps=config.training.eval_steps,
-        evaluation_strategy="steps",
-        save_strategy="steps",
+        do_eval=True,
         fp16=config.training.fp16,
         max_grad_norm=config.training.max_grad_norm,
         seed=config.seed,
@@ -218,6 +222,11 @@ def finetune_model(
     
     # Override output directory
     config.output_dir = str(output_dir)
+    
+    # Override model name to use gpt2 instead of gemini-pro
+    # since Gemini models are not available on Hugging Face
+    config.model_name = "gpt2"
+    logger.info(f"Overriding model name to {config.model_name}")
     
     # Set up training environment
     model, tokenizer, env_config = setup_training_environment(config)

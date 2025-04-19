@@ -1,0 +1,32 @@
+# Production environment configuration overrides
+
+environment: production
+
+# Google Cloud Settings - Production specific
+gcp:
+  project_id: risk-manager-457219
+  region: us-central1
+  storage:
+    bucket_name: risk-manager-agent5-prod
+
+# Fine-tuning production overrides
+fine_tuning:
+  model: gpt2  # Using open-source model for current implementation
+  vertex_ai:
+    machine_type: n1-standard-16
+    accelerator_type: NVIDIA_TESLA_V100
+    accelerator_count: 2
+  training:
+    batch_size: 32  # Larger batch size for production
+    epochs: 10  # More epochs for production quality
+    fp16: true  # Enable mixed precision
+    gradient_accumulation_steps: 2
+
+# Deployment Settings
+deployment:
+  endpoint_name: model-endpoint-prod
+  machine_type: n1-standard-8
+  min_replicas: 2
+  max_replicas: 10
+  accelerator_type: NVIDIA_TESLA_T4
+  accelerator_count: 1 

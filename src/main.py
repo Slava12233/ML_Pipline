@@ -76,7 +76,7 @@ def process_pdfs(
     logger.info(f"Extracting metadata: {extract_metadata}")
 
     # Import here to avoid circular imports
-    from pdf_processing import extract
+    from src.pdf_processing import extract
 
     result = extract.process_directory(
         pdf_dir=pdf_dir,
@@ -110,7 +110,7 @@ def prepare_data(
     logger.info(f"Preparing training data from {text_dir} to {output_dir}")
 
     # Import here to avoid circular imports
-    from data_preparation import generate
+    from src.data_preparation import generate
 
     result = generate.create_training_data(
         text_dir=text_dir,
@@ -122,7 +122,7 @@ def prepare_data(
     
     # Generate quality report if requested
     if generate_quality_report:
-        from data_preparation import quality
+        from src.data_preparation import quality
         
         try:
             logger.info("Generating quality report for training data")
@@ -150,7 +150,7 @@ def prepare_data(
     
     # Export to GCS if requested
     if export_to_gcs:
-        from data_preparation import export
+        from src.data_preparation import export
         
         try:
             logger.info("Exporting training data to Google Cloud Storage")
@@ -218,7 +218,7 @@ def finetune(
         logger.info(f"Using model: {model_name}")
 
     # Import here to avoid circular imports
-    from fine_tuning import train
+    from src.fine_tuning import train
 
     # Check if using best hyperparameters
     if use_best_params:
@@ -227,7 +227,7 @@ def finetune(
             return
         
         # Import here to avoid circular imports
-        from fine_tuning import hyperparameter
+        from src.fine_tuning import hyperparameter
         
         # Fine-tune with best hyperparameters
         model_path = hyperparameter.finetune_with_best_params(
@@ -261,7 +261,7 @@ def evaluate(
     logger.info(f"Results will be saved to {output_dir}")
 
     # Import here to avoid circular imports
-    from evaluation import metrics
+    from src.evaluation import metrics
 
     metrics.evaluate_model(
         model_dir=model_dir,
@@ -283,7 +283,7 @@ def deploy(
     logger.info(f"Deploying model from {model_dir}")
 
     # Import here to avoid circular imports
-    from deployment import vertex
+    from src.deployment import vertex
 
     endpoint = vertex.deploy_model(
         model_dir=model_dir,
@@ -307,7 +307,7 @@ def generate_report(
     logger.info(f"Generating quality report for {data_dir}")
     
     # Import here to avoid circular imports
-    from data_preparation import quality
+    from src.data_preparation import quality
     
     try:
         # Generate quality report
@@ -357,7 +357,7 @@ def export_to_gcs(
     logger.info(f"Exporting data from {base_dir} to gs://{bucket_name}/{gcs_base_dir}")
     
     # Import here to avoid circular imports
-    from data_preparation import export
+    from src.data_preparation import export
     
     try:
         result = export.export_all_to_gcs(
@@ -395,7 +395,7 @@ def optimize_hyperparameters(
     config = load_config(config_path)
     
     # Import here to avoid circular imports
-    from fine_tuning import hyperparameter
+    from src.fine_tuning import hyperparameter
     
     # Optimize hyperparameters
     best_params, best_config = hyperparameter.optimize_hyperparameters(
@@ -421,7 +421,7 @@ def create_training_templates(
     logger.info(f"Creating training templates in {output_dir}")
     
     # Import here to avoid circular imports
-    from fine_tuning import train
+    from src.fine_tuning import train
     
     # Create templates
     templates = train.create_training_templates(output_dir)
@@ -463,7 +463,7 @@ def create_pipeline(
     logger.info(f"Creating pipeline {pipeline_name}")
     
     # Import here to avoid circular imports
-    from fine_tuning import pipeline
+    from src.fine_tuning import pipeline
     
     # Create pipeline
     pipeline_path = pipeline.create_pipeline(
@@ -512,7 +512,7 @@ def run_vertex_pipeline(
         return
     
     # Import here to avoid circular imports
-    from fine_tuning import pipeline
+    from src.fine_tuning import pipeline
     
     # Run pipeline
     job_name = pipeline.run_pipeline(
@@ -559,7 +559,7 @@ def create_pipeline_trigger(
         return
     
     # Import here to avoid circular imports
-    from fine_tuning import pipeline
+    from src.fine_tuning import pipeline
     
     # Create trigger
     trigger_name = pipeline.create_pipeline_trigger(
@@ -627,7 +627,7 @@ def run_pipeline(
         pipeline_output_dir = os.path.join(output_dir, "pipeline")
         
         # Import here to avoid circular imports
-        from fine_tuning import pipeline
+        from src.fine_tuning import pipeline
         
         # Create pipeline
         pipeline_path = pipeline.create_pipeline(

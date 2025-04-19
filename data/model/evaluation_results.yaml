@@ -1,0 +1,65 @@
+num_questions: 3
+pdf_path: !!python/object/apply:pathlib.WindowsPath
+- C:\
+- Users
+- slava
+- Desktop
+- Fine_tuning
+- data
+- pdfs
+- Slava labovkin- Protfolio+cv.pdf
+questions:
+- answers:
+    peft: ___________________________________________________________________________
+    standard: '_____________________________________
+
+      - _______________-
+
+      I am a freelance writer for my blog. I''m also a regular contributor to the
+      website bloglovin . I am always looking for new writers to join my team.'
+  context: "Slava\n \nLabovkin\n \n:\n \nAI\n \nDeveloper\n \n \n \nPersonal\n \n\
+    Information\n \nName:\n \nSlava\n \nLabovkin\n \nPhone:\n \n052-6848514\n \nEmail:\n\
+    \ \nslavalabovkin1223@gmail.com\n \nLocation:\n \nIsrael.Lod\n \nGitHub:\n \n\
+    https:/"
+  question: "What can you tell me about Slava\n \nLabovkin\n \n:\n \nAI\n \nDeveloper\n\
+    \ \n \n \nPerson?"
+- answers:
+    peft: ". \_I am not really sure what is going on here--I think it is an academic\
+      \ problem, not a deep learning problem. I have not been able to look at the\
+      \ results of the courses that I've taken, so I can only speculate about the\
+      \ extent of it. But I would like to know if I find the data that we are talking\
+      \ about in the way that is in my view: the sort of sort that people find when\
+      \ they look for what they are doing, and"
+    standard: I can tell you what an education is.   To be clear, an educational is
+      a form of education that is offered to students and that supports them in their
+      learning. The term is often used to describe methods of learning that are used
+      in many fields, including science, mathematics, medicine, sports, business,
+      and so forth. As you might imagine, the definition of a college education can
+      be quite different from that of any other field. However, it can also be used
+      as a
+  context: "Education\n \nand\n \nTraining\n \n\u25CF\n \nExtensive\n \nself-directed\n\
+    \ \ntraining\n \nand\n \nspecialized\n \nonline\n \ncourses\n \nin\n \nartificial\n\
+    \ \nintelligence,\n \ndeep\n \nlearning,\n \nNLP,\n \nand\n \nweb\n \ndevelopment.\n\
+    \ \n\u25CF"
+  question: "What can you tell me about Education\n \nand\n \nTraining\n \n\u25CF\n\
+    \ \nExtensive\n \nself-?"
+- answers:
+    peft: "\u3008WOO-MCCM-SERVER\u3009\n.   \u239C\nThe model is the most important\
+      \ aspect of a Web Application. It is a point of reference for a business website\
+      \ that needs to be able to navigate through its entire user's mobile devices.\
+      \ This point is important because it is how the user navigates through their\
+      \ mobile device. The user can interact with their smartphone, tablet, desktop\
+      \ or laptop. So, wooclient provides a way to handle"
+    standard: "Server\n.  __________\nwoo.mxserver.init\n[0]\nThis configures how\
+      \ the app renders the website. On the other hand, we don't like the layout of\
+      \ the site. We use a lot of markup. Why? \_Because it requires us to create\
+      \ a little bit of HTML using a markup generator. Since we use markup generation,\
+      \ it's very easy to build our own markup generators. For example, let's say\
+      \ we want to"
+  context: "2.\n \nWoo-mcp-server\n \n\u2013\n \nModel\n \nContext\n \nProtocol\n\
+    \ \n(MCP)\n \nServer\n \nfor\n \nWooCommerce\n \nGitHub\n \nRepo:\n \nWoo-mcp-server\n\
+    \ \n\u25CF\n \nAsynchronous\n \nPython\n \nserver\n \nintegrating\n \nWooCommerce\n\
+    \ \nand\n \nWor"
+  question: "What can you tell me about 2.\n \nWoo-mcp-server\n \n\u2013\n \nModel\n\
+    \ \nContext\n \nProtoc?"
+text_length: 9184
