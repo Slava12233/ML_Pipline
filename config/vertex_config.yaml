@@ -8,11 +8,11 @@ project:
 
 # Google Cloud Settings
 gcp:
-  project_id: risk-manager-457219  # Updated project ID
+  project_id: risk-manager-457219  # Update with your project ID
   region: us-central1
   zone: us-central1-a
   storage:
-    bucket_name: risk-manager-457219  # Updated bucket name
+    bucket_name: risk-manager-457219-cv-pdfs  # Update with your bucket name
     pdf_folder: pdfs
     extracted_text_folder: extracted_text
     training_data_folder: training_data
@@ -20,7 +20,7 @@ gcp:
 
 # Fine-tuning Settings
 fine_tuning:
-  model: gpt2  # Updated from model_name to model
+  model: gpt2
   method: peft
   peft:
     method: lora
@@ -30,6 +30,8 @@ fine_tuning:
     target_modules:
       - c_attn
       - c_proj
+    bias: "none"
+    task_type: "CAUSAL_LM"
   training:
     batch_size: 16
     learning_rate: 1.0e-5
@@ -43,7 +45,7 @@ fine_tuning:
     project_id: risk-manager-457219
     region: us-central1
     machine_type: n1-standard-8
-    accelerator_type: NVIDIA_TESLA_V100
+    accelerator_type: NVIDIA_TESLA_T4
     accelerator_count: 1
     service_account: null
     container_uri: gcr.io/cloud-aiplatform/training/pytorch-gpu.1-13:latest
@@ -86,12 +88,12 @@ evaluation:
 
 # Deployment Settings
 deployment:
-  endpoint_name: model-endpoint-vertex
+  endpoint_name: cv-model-endpoint
   machine_type: n1-standard-4
   min_replicas: 1
   max_replicas: 2
   accelerator_type: NVIDIA_TESLA_T4
   accelerator_count: 1
 
-# Vertex AI environment configuration overrides
+# Vertex AI environment configuration
 environment: vertex 
