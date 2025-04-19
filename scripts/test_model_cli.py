@@ -240,7 +240,6 @@ def test_model_on_pdf(
             evaluate_model_on_pdf(
                 pdf_path=pdf_path,
                 model_name="gpt2",  # Base model
-                peft_model_path=model_dir if use_peft else None,
                 use_standard=use_standard,
                 use_peft=use_peft,
                 num_questions=num_questions,
