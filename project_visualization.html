@@ -368,6 +368,7 @@
                                 <li>Easier debugging</li>
                                 <li>Lower resource requirements</li>
                                 <li>Suitable for small datasets</li>
+                                <li>Uses config/local_config.yaml</li>
                             </ul>
                             
                             <h5 class="mt-4">Vertex AI Mode</h5>
@@ -377,6 +378,17 @@
                                 <li>Managed infrastructure</li>
                                 <li>Integrated monitoring</li>
                                 <li>Suitable for large datasets</li>
+                                <li>Uses config/vertex_config.yaml</li>
+                            </ul>
+                            
+                            <h5 class="mt-4">Production Mode</h5>
+                            <p>Run the pipeline in a production environment with optimized settings.</p>
+                            <ul>
+                                <li>Optimized performance</li>
+                                <li>Strict validation</li>
+                                <li>Enhanced security</li>
+                                <li>Robust error handling</li>
+                                <li>Uses config/production_config.yaml</li>
                             </ul>
                         </div>
                     </div>
@@ -415,6 +427,11 @@
                                             <td>Vertex AI Endpoints</td>
                                             <td>Seamless integration with training pipeline</td>
                                         </tr>
+                                        <tr>
+                                            <td>CLI Framework</td>
+                                            <td>Typer</td>
+                                            <td>Modern, easy-to-use CLI with type hints</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -442,7 +459,7 @@
                             <h6>Key Components:</h6>
                             <ul class="list-unstyled">
                                 <li><i class="fas fa-code me-2"></i>extract.py</li>
-                                <li><i class="fas fa-code me-2"></i>metadata.py</li>
+                                <li><i class="fas fa-code me-2"></i>__init__.py</li>
                             </ul>
                             <hr>
                             <h6>Features:</h6>
@@ -451,6 +468,7 @@
                                 <li>Document AI integration</li>
                                 <li>Metadata extraction</li>
                                 <li>Text normalization</li>
+                                <li>Semantic chunking</li>
                             </ul>
                         </div>
                     </div>
@@ -583,6 +601,34 @@
                                 <li>Logging</li>
                                 <li>GCP integration</li>
                                 <li>Error handling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card module-card">
+                        <div class="card-body text-center">
+                            <div class="module-icon">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <h4>Command-Line Interface</h4>
+                            <p>Unified command-line interface for the pipeline.</p>
+                            <hr>
+                            <h6>Key Components:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-code me-2"></i>run.py</li>
+                                <li><i class="fas fa-code me-2"></i>finetune_slava_cv.py</li>
+                                <li><i class="fas fa-code me-2"></i>check_training.py</li>
+                                <li><i class="fas fa-code me-2"></i>evaluate_model.py</li>
+                            </ul>
+                            <hr>
+                            <h6>Features:</h6>
+                            <ul class="text-start">
+                                <li>Typer-based CLI</li>
+                                <li>Pipeline execution</li>
+                                <li>Step-by-step execution</li>
+                                <li>Command groups</li>
+                                <li>Environment selection</li>
                             </ul>
                         </div>
                     </div>
@@ -783,3 +829,131 @@
                                             <th>Parameter</th>
                                             <th>Description</th>
                                             <th>Example</th>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section bg-light" id="timeline">
+        <div class="container">
+            <h2 class="text-center mb-5">Project Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h3>Phase 1: Infrastructure & PDF Processing</h3>
+                        <p>Weeks 1-2 (Completed: April 19, 2025)</p>
+                        <ul>
+                            <li>Project setup and structure</li>
+                            <li>PDF text extraction with PyPDF2</li>
+                            <li>Document AI integration</li>
+                            <li>Text cleaning and normalization</li>
+                            <li>Semantic chunking algorithm</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h3>Phase 2: Training Data Preparation</h3>
+                        <p>Weeks 3-4 (Completed: April 19, 2025)</p>
+                        <ul>
+                            <li>JSONL schema for training data</li>
+                            <li>Question generation from chunks</li>
+                            <li>Instruction-response pair generation</li>
+                            <li>Data filtering for quality</li>
+                            <li>Data splitting functionality</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h3>Phase 3: Fine-tuning Implementation</h3>
+                        <p>Weeks 5-6 (Completed: April 19, 2025)</p>
+                        <ul>
+                            <li>Vertex AI environment configuration</li>
+                            <li>PyTorch with PEFT/LoRA setup</li>
+                            <li>Training loop with checkpointing</li>
+                            <li>Hyperparameter optimization</li>
+                            <li>Pipeline orchestration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h3>Phase 4: Evaluation & Deployment</h3>
+                        <p>Weeks 7-8 (Completed: April 20, 2025)</p>
+                        <ul>
+                            <li>Automated evaluation metrics</li>
+                            <li>Human evaluation framework</li>
+                            <li>Comparison tools</li>
+                            <li>Model deployment to Vertex AI</li>
+                            <li>Documentation and knowledge transfer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize Mermaid for diagrams
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        
+        // Set up charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // PEFT/LoRA vs Full Fine-tuning Chart
+            const peftCtx = document.getElementById('peftChart').getContext('2d');
+            const peftChart = new Chart(peftCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Trainable Parameters', 'Memory Usage', 'Training Time', 'Performance'],
+                    datasets: [
+                        {
+                            label: 'Full Fine-tuning',
+                            data: [100, 100, 100, 100],
+                            backgroundColor: '#4285F4',
+                        },
+                        {
+                            label: 'PEFT/LoRA',
+                            data: [15, 25, 40, 95],
+                            backgroundColor: '#34A853',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'PEFT/LoRA vs Full Fine-tuning (relative scale)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Relative Value (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Add more charts as needed
+        });
+    </script>
+</body>
+</html>
